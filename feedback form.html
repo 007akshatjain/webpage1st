@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEEDBACK FORM</title>
+    <style>
+    *{
+        box-sizing: border-box;
+    }
+    body{
+        margin: 0;
+        width: 100%;
+        overflow: auto;
+        font-size: 18px;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        background-image: url(https://www.teahub.io/photos/full/279-2792224_website-background-design-hd.jpg);
+        background-size: 1700px;
+        background-repeat: no-repeat;
+    }
+    .right{
+        float: right;
+        width: 50%;
+        padding: 5px;
+        padding-right: 19px;
+        overflow: auto;
+    }
+    .left{
+        float: left;
+        border-right: 2px solid grey;
+        overflow: auto;
+        padding: 5px;
+        width: 50%;
+    }
+    form{
+        display: grid;
+    }
+    form *{
+        font-size: 15px;
+        margin-top: 5px;
+        padding: 4px;
+         }
+    .fade{
+        opacity: 0;
+    }
+    form input{
+        
+        border-radius: 15px;
+        border: 1px solid grey;
+        width:400px;
+        padding: 5px;
+    }
+    .lside{
+        padding: 20px;
+        border-radius: 25px;
+        
+    }
+    select{
+        border-radius: 10px;
+    border: 1px solid burlywood ;
+    width: 100px;
+    margin-right: 10px;
+    }
+    #entry{
+    padding: 10px;
+    border-radius: 7px;
+    color: rgb(0, 0, 0);
+    box-shadow: black 10px;
+    cursor:auto;
+    width: 100px;
+    }
+   
+    
+    
+    .feed{
+        width: 80%;
+        background: white;
+       border-radius: 20px;
+       margin: auto;
+       margin-bottom: 5px;
+       position: relative;
+        
+    }
+
+    .feed .area{
+        padding: 20px;
+        
+    }
+    
+    .feed .head{
+        color: rgb(24, 22, 22);
+        padding: 10px 20px;
+        font-size: 20px;
+        text-transform: capitalize;
+        
+    }
+   
+    #reset{
+        width: 100px;
+        border-radius: 7px;
+        padding: 10px;
+    }
+   
+    
+    
+    
+    </style>
+</head>
+<body>
+    <div class="left">
+        <div class="head">
+            <h1 style="font-size:40px; font-style: italic; background-color: burlywood;">Feedback Form</h1>
+           
+        </div>
+        <div class="lside">
+            <form id="form" autocomplete="off">
+                <label style="font-size: larger;">Gender:</label>
+                
+                <select id="gender">
+                    <option>Choose</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+                <label style="font-size: larger;">First Name</label>
+               <div> <input type="text" name="firstName" id="firstName" maxlength="30" required></div>
+                
+                <label style="font-size: larger;">Last Name</label>
+              <div> <input type="text" name="lastName" id="lastName" maxlength="30"></div> 
+               <label style="font-size: larger;">Your Feedback About The Page:</label>
+                <textarea  id="comment" class="text" rows="10" cols="30" placeholder="Type your Feedback....." required></textarea>
+                
+                <input type="button" value="Submit" id="entry">
+                <input type="reset" value="Reset" id="reset">
+            </form>
+        </div>
+    </div>
+    <div class="right">
+        <div class="rheading" style="font-size: 20px; font-style: italic ;text-align: center;">
+          <h1 style="background-color: cadetblue;">Viewers Valuable Feedback:</h1>
+        </div>
+        <div class="feed">
+            
+        </div>
+    </div>
+    <script>
+    
+        var a = document.querySelector('#entry');
+    a.addEventListener('click', calling);
+    function calling(){
+        console.log('Function is called.....');
+        var gen = document.getElementById('gender');
+        if(gen.value == 'Choose'){
+            alert('Gender Field is Empty!!!!!');
+            return;
+        }
+        
+        
+        var fname = document.getElementById('firstName');
+        var lname = document.getElementById('lastName');
+        var comment= document.getElementById('comment');
+        if( fname.value.length < 3 && comment.value.length < 5){ // validations so that user can't write invalid names and comments
+            alert('Please write valid First name and Comment ');
+            return;
+        }
+        if( fname.value.length < 3){
+            alert('please write valid First Name:')
+            return;
+        }
+        if(comment.value.length < 5)
+        {
+            alert('Please write valid comment');
+            return;
+        }
+        
+        display(gen, fname, lname, comment);
+    }
+    function display(gen, fname, lname, comment) {
+        var n = document.createElement('div');
+        n.className = 'feed';
+        var nh = document.createElement('div');
+        var nc = document.createElement('div');
+        nh.className = 'head';
+        if(gen.value == 'Male')
+        nh.innerHTML = 'Mr.' + ' ' + fname.value + ' ' + lname.value+ ' says';
+        else
+        nh.innerHTML = 'Mrs.'+ ' ' + fname.value + ' ' + lname.value+ ' says';
+        nc.className = 'area';
+        nc.innerHTML = comment.value;
+        n.appendChild(nh);
+        n.appendChild(nc);
+        document.querySelector('.rheading').after(n);
+        n.classList.add('fade');
+        if(document.getElementsByClassName('feed').length == 6){
+            document.getElementsByClassName('feed')[5].remove();
+        }
+        setTimeout(()=>n.classList.remove('fade'), 500);
+    }
+    
+    </script>
+    </body>
+    
+</html>
